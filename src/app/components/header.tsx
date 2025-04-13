@@ -1,15 +1,18 @@
+"use client";
 import Link from "next/link";
+import {usePathname} from "next/navigation";
 
 const menuItems = [
   {name: "Home", path: "/"},
   {name: "About", path: "/about"},
 ];
 const Header = () => {
+  const currentPath = usePathname();
   return (
-    <nav className="sticky top-0 left-0 ">
-      <ul className="flex justify-between p-8 bg-fuchsia-400/30">
+    <nav className="sticky top-0 left-0 bg-zinc-800">
+      <ul className="flex justify-between px-8 py-4">
         {menuItems.map(({path, name}, i) => (
-          <li key={i}>
+          <li key={i} className={`text-xl ${path === currentPath && "underline underline-offset-6 text-amber-200"}`}>
             <Link href={path}>{name}</Link>
           </li>
         ))}
