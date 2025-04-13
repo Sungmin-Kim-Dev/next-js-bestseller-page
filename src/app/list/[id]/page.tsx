@@ -46,8 +46,12 @@ export default async function DetailPage(props: {params: IParams}) {
       <h1 className="text-3xl font-bold text-center mb-8">{results.display_name} Books</h1>
       <ul className="grid grid-cols-2 gap-5 py-6 sm:grid-cols-3 lg:grid-cols-4 justify-between">
         {bookList.map((book) => (
-          <li key={book.title} className="border border-amber-200/20">
-            <img className="w-full" src={book.book_image} alt={book.title} />
+          <li key={book.title} className="border border-zinc-300/20 shadow-lg shadow-zinc-800">
+            {book.book_image ? (
+              <img className="w-full" src={book.book_image} alt={book.title} />
+            ) : (
+              <div className="px-3 h-3/4 flex items-center bg-zinc-800">{book.title}</div>
+            )}
             <div className="p-3 space-y-1.5">
               <h2 className="">{book.title}</h2>
               <p className="text-amber-400">
