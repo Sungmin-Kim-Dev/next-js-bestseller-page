@@ -21,11 +21,6 @@ type IParams = Promise<{
   id: string;
 }>;
 
-async function getBookList(id: string) {
-  const response = await fetch(`${API}/list?name=${id}`);
-  const json = await response.json();
-  return json.results;
-}
 export async function generateMetadata(props: {params: IParams}) {
   const params = await props.params;
   const id = params.id;
@@ -35,25 +30,37 @@ export async function generateMetadata(props: {params: IParams}) {
   };
 }
 
+async function getBookList(id: string) {
+  const response = await fetch(`${API}/list?name=${id}`);
+  const json = await response.json();
+  return json.results;
+}
+
 export default async function DetailPage(props: {params: IParams}) {
   const params = await props.params;
   const id = params.id;
   const results: IResults = await getBookList(id);
   const bookList: IBookList[] = results.books;
   return (
-    <div>
-      <h1 className="text-3xl text-center">{results.display_name} Books</h1>
-      <ul className="flex flex-wrap">
+    <div className="p-8">
+      <h1 className="text-3xl font-bold text-center mb-8">{results.display_name} Books</h1>
+      <ul className="grid grid-cols-2 gap-5 py-6 sm:grid-cols-3 lg:grid-cols-4 justify-between">
         {bookList.map((book) => (
-          <li key={book.title}>
-            <img src={book.book_image} alt={book.title} />
-            <h2>{book.title}</h2>
-            <p>Author: {book.author}</p>
-            {book.buy_links[0].url && (
-              <a href={book.buy_links[0].url} target="_blank">
-                Buy Now &rarr;
-              </a>
-            )}
+          <li key={book.title} className="border border-amber-200/20">
+            <img className="w-full" src={book.book_image} alt={book.title} />
+            <div className="p-3 space-y-1.5">
+              <h2 className="">{book.title}</h2>
+              <p className="text-amber-400">
+                <a className="hover:text-amber-600" href={`https://www.google.com/search?q=${book.author}`} target="_blank">
+                  {book.author}
+                </a>
+              </p>
+              {book.buy_links[0].url && (
+                <a className="hover:text-orange-300" href={book.buy_links[0].url} target="_blank">
+                  Buy Now &rarr;
+                </a>
+              )}
+            </div>
           </li>
         ))}
       </ul>
