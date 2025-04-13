@@ -30,10 +30,12 @@ const HomePage = async () => {
   const lists: ILists = await getLists();
   return (
     <div className="home-container">
-      <ul>
+      <ul className="p-8 flex flex-wrap gap-x-6 gap-y-10">
         {lists.results.map((list) => (
           <li key={list.list_name_encoded}>
-            <Link href={`list/${list.list_name_encoded}`}>{list.display_name}</Link>
+            <Link className="rounded-xl border border-amber-300/30 px-4 py-2 bg-zinc-600/30" href={`list/${list.list_name_encoded}`}>
+              {list.display_name}
+            </Link>
           </li>
         ))}
       </ul>
