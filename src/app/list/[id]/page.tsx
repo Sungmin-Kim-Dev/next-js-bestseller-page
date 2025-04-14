@@ -21,9 +21,8 @@ type IParams = Promise<{
   id: string;
 }>;
 
-export async function generateMetadata(props: {params: IParams}) {
-  const params = await props.params;
-  const id = params.id;
+export async function generateMetadata({params}: {params: IParams}) {
+  const {id} = await params;
   const results: IResults = await getBookList(id);
   return {
     title: results.display_name,
@@ -36,9 +35,8 @@ async function getBookList(id: string) {
   return json.results;
 }
 
-export default async function DetailPage(props: {params: IParams}) {
-  const params = await props.params;
-  const id = params.id;
+export default async function DetailPage({params}: {params: IParams}) {
+  const {id} = await params;
   const results: IResults = await getBookList(id);
   const bookList: IBookList[] = results.books;
   return (
