@@ -1,5 +1,5 @@
 import Link from "next/link";
-import {API} from "../api";
+import { API } from "../api";
 
 export const metadata = {
   title: "Home",
@@ -30,10 +30,13 @@ const HomePage = async () => {
   const lists: ILists = await getLists();
   return (
     <div className="home-container">
-      <ul className="p-8 flex flex-wrap gap-x-6 gap-y-10">
+      <ul className="flex flex-wrap gap-x-6 gap-y-10 p-8">
         {lists.results.map((list) => (
           <li key={list.list_name_encoded}>
-            <Link className="rounded-xl border border-amber-300/30 px-4 py-2 bg-zinc-600/30" href={`list/${list.list_name_encoded}`}>
+            <Link
+              className="rounded-xl border border-amber-300/30 bg-zinc-600/30 px-4 py-2"
+              href={`list/${list.list_name_encoded}`}
+            >
               {list.display_name}
             </Link>
           </li>
